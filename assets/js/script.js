@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
     }
-
     runGame("addition");
 })
 
@@ -29,6 +28,10 @@ function runGame(gameType){
 
     if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
+    } else if (gameType === "subtract") {
+        displaySubtractQuestion(num1, num2);
+    } else if (gameType === "multiply") {
+        displayMultiplyQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unkown game type: ${gameType}. Aborting!`;
@@ -42,11 +45,12 @@ function checkAnswer() {
 
     if (isCorrect) {
         alert("Well done! You got it right! =)"); 
-        incrementScore();      
+        incrementScore();  
     } else {
         alert(`Aww, that's wrong. You put ${userAnswer}, but the correct answer is ${calculatedAnswer[0]}.`);
         incrementWrongAnswer();
     }
+    document.getElementById("answer-box").value = null;    
 }
 
 function calculateCorrectAnswer() {
@@ -56,11 +60,14 @@ function calculateCorrectAnswer() {
 
     if (opperator === "+") {
         return [opperand1 + opperand2, "addition"];
+    } else if (opperator === "-") {
+        return [opperand1 - opperand2, "subtract"];
+    } else if (opperator === "x") {
+        return [opperand1 * opperand2, "multiply"];
     } else {
         alert(`Unknown opperator type: ${opperator}`);
         throw `Unknown opperator type: ${opperator}. Aborting!`;
     }
-
 }
 
 
@@ -78,15 +85,18 @@ function displayAdditionQuestion(opperand1, opperand2) {
     document.getElementById("opperand1").textContent = opperand1;
     document.getElementById("opperand2").textContent = opperand2;
     document.getElementById("opperator").textContent = "+";
-
 }
 
-function displaySubtractQuestion() {
-
+function displaySubtractQuestion(opperand1, opperand2) {
+    document.getElementById("opperand1").textContent = opperand1 > opperand2 ? opperand1 : opperand2;
+    document.getElementById("opperand2").textContent = opperand1 > opperand2 ? opperand2 : opperand1;
+    document.getElementById("opperator").textContent = "-";
 }
 
-function displayMultiplyQuestion() {
-
+function displayMultiplyQuestion(opperand1, opperand2) {
+    document.getElementById("opperand1").textContent = opperand1;
+    document.getElementById("opperand2").textContent = opperand2;
+    document.getElementById("opperator").textContent = "x";
 }
 
 function displayDivisionQuestion() {

@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let button of buttons) {
         button.addEventListener("click", function() {
             if (this.getAttribute("data-type") === "submit") {
-                alert("You clicked subimt!");
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
@@ -36,12 +36,31 @@ function runGame(gameType){
 }
 
 function checkAnswer() {
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let calculatedAnswer = calculateCorrectAnswer();
+    let isCorrect = userAnswer === calculatedAnswer[0];
 
+    if (isCorrect) {
+        alert("Well done! You got it right! =)");
+    } else {
+        alert(`Aww, that's wrong. You put ${userAnswer}, but the correct answer is ${calculatedAnswer[0]}.`);
+    }
 }
 
 function calculateCorrectAnswer() {
+    let opperand1 = parseInt(document.getElementById('opperand1').innerText);
+    let opperand2 = parseInt(document.getElementById('opperand2').innerText);
+    let opperator = document.getElementById("opperator").innerText;
+
+    if (opperator === "+") {
+        return [opperand1 + opperand2, "addition"];
+    } else {
+        alert(`Unknown opperator type: ${opperator}`);
+        throw `Unknown opperator type: ${opperator}. Aborting!`;
+    }
 
 }
+
 
 function incrementScore() {
 

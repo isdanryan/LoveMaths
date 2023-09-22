@@ -40,10 +40,13 @@ function runGame(gameType){
         displaySubtractQuestion(num1, num2);
     } else if (gameType === "multiply") {
         displayMultiplyQuestion(num1, num2);
+    } else if (gameType === "division") {
+        displayDivisionQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unkown game type: ${gameType}. Aborting!`;
     }
+
 }
 
 function checkAnswer() {
@@ -57,7 +60,8 @@ function checkAnswer() {
     } else {
         alert(`Aww, that's wrong. You put ${userAnswer}, but the correct answer is ${calculatedAnswer[0]}.`);
         incrementWrongAnswer();
-    }  
+    } 
+    runGame(calculatedAnswer[1]); 
 }
 
 function calculateCorrectAnswer() {
@@ -71,6 +75,8 @@ function calculateCorrectAnswer() {
         return [opperand1 - opperand2, "subtract"];
     } else if (opperator === "x") {
         return [opperand1 * opperand2, "multiply"];
+    } else if (opperator === "/") {
+        return [opperand1 / opperand2, "division"];
     } else {
         alert(`Unknown opperator type: ${opperator}`);
         throw `Unknown opperator type: ${opperator}. Aborting!`;
@@ -106,6 +112,9 @@ function displayMultiplyQuestion(opperand1, opperand2) {
     document.getElementById("opperator").textContent = "x";
 }
 
-function displayDivisionQuestion() {
-
+function displayDivisionQuestion(opperand1,opperand2) {
+    opperand1 = opperand1 * opperand2;
+    document.getElementById("opperand1").textContent = opperand1;
+    document.getElementById("opperand2").textContent = opperand2;
+    document.getElementById("opperator").textContent = "/";
 }
